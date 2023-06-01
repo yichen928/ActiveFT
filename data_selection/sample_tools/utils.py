@@ -125,6 +125,10 @@ def get_distance(p1, p2, type, slice=1000, temperature=None):
 
     return dist
 
+def update_distance(distances, all_features, cfeature, dist_func):
+    new_dist = dist_func(all_features, cfeature)
+    distances = torch.where(distances < new_dist, distances, new_dist)
+    return distances
 
 def farthest_distance_sample(all_features, sample_num, dist_func, init_ids=[]):
     if len(init_ids) >= sample_num:
